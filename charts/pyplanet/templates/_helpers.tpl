@@ -25,3 +25,7 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- define "pyplanet.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{- define "pyplanet.sharedMapsClaimName" -}}
+{{- printf "%s-maps" (include "pyplanet.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

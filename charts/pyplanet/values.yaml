@@ -17,8 +17,12 @@ args:
 podAnnotations: {}
 podLabels: {}
 
-podSecurityContext: {}
-securityContext: {}
+podSecurityContext:
+  fsGroup: 1000
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  runAsNonRoot: true
 
 resources: {}
 
@@ -35,17 +39,17 @@ config:
       default: []
     DATABASES:
       default:
-        ENGINE: peewee_async.PostgresqlDatabase
+        ENGINE: peewee_async.MySQLDatabase
         NAME: pyplanet
         OPTIONS:
-          host: postgres
+          host: db
           user: pyplanet
-          password: change-me
+          password: pyplanet
           autocommit: true
     DEDICATED:
       default:
-        HOST: 127.0.0.1
-        PORT: "5000"
+        HOST: dedicated
+        PORT: "2350"
         USER: SuperAdmin
         PASSWORD: change-me
     MAP_MATCHSETTINGS:
@@ -91,4 +95,15 @@ persistence:
     - ReadWriteOnce
   size: 1Gi
   storageClassName: ""
-  mountPath: /data
+  mountPath: /app/server
+
+sharedMaps:
+  enabled: false
+  accessModes:
+    - ReadWriteMany
+  size: 1Gi
+  storageClassName: ""
+  mountPath: /server/UserData/Maps
+
+extraVolumes: []
+extraVolumeMounts: []

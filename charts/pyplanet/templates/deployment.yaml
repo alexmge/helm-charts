@@ -57,6 +57,13 @@ spec:
             - name: data
               mountPath: {{ .Values.persistence.mountPath | quote }}
             {{- end }}
+            {{- if .Values.sharedMaps.enabled }}
+            - name: shared-maps
+              mountPath: {{ .Values.sharedMaps.mountPath | quote }}
+            {{- end }}
+            {{- with .Values.extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           {{- with .Values.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
@@ -69,4 +76,12 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: {{ include "pyplanet.fullname" . }}
+        {{- end }}
+        {{- if .Values.sharedMaps.enabled }}
+        - name: shared-maps
+          persistentVolumeClaim:
+            claimName: {{ include "pyplanet.sharedMapsClaimName" . }}
+        {{- end }}
+        {{- with .Values.extraVolumes }}
+        {{- toYaml . | nindent 8 }}
         {{- end }}

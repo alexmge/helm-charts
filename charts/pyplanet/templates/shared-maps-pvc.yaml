@@ -1,0 +1,17 @@
+{{- if .Values.sharedMaps.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "pyplanet.sharedMapsClaimName" . }}
+  labels:
+    {{- include "pyplanet.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    {{- toYaml .Values.sharedMaps.accessModes | nindent 4 }}
+  resources:
+    requests:
+      storage: {{ .Values.sharedMaps.size | quote }}
+  {{- with .Values.sharedMaps.storageClassName }}
+  storageClassName: {{ . | quote }}
+  {{- end }}
+{{- end }}
