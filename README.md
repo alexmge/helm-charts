@@ -5,7 +5,7 @@
 Add the repository after publishing GitHub Pages for this repo:
 
 ```bash
-helm repo add pyplanet https://alexmge.github.io/pyplanet-helm-chart
+helm repo add pyplanet https://alexmge.github.io/helm-charts
 helm repo update
 helm install pyplanet pyplanet/pyplanet
 ```
