@@ -10,8 +10,10 @@ nameOverride: ""
 fullnameOverride: ""
 
 command:
-  - start
+  - python3
+  - manage.py
 args:
+  - start
   - "--pool=default"
 
 podAnnotations: {}

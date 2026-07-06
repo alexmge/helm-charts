@@ -29,6 +29,22 @@ spec:
       securityContext:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.persistence.enabled }}
+      initContainers:
+        - name: init-pyplanet-data
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - sh
+            - -ec
+            - |
+              if [ -z "$(find /data -mindepth 1 -maxdepth 1 2>/dev/null)" ]; then
+                cp -a /app/server/. /data/
+              fi
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      {{- end }}
       containers:
         - name: pyplanet
           {{- with .Values.securityContext }}
