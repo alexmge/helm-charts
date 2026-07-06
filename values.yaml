@@ -1,0 +1,94 @@
+replicaCount: 1
+
+image:
+  repository: pyplanet/pyplanet
+  pullPolicy: IfNotPresent
+  tag: latest
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+command:
+  - pyplanet
+args:
+  - start
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+securityContext: {}
+
+resources: {}
+
+extraEnv: []
+
+config:
+  settingsMethod: yaml
+  settingsDirectory: /config
+  base:
+    DEBUG: false
+    POOLS:
+      - default
+    OWNERS:
+      default: []
+    DATABASES:
+      default:
+        ENGINE: peewee_async.PostgresqlDatabase
+        NAME: pyplanet
+        OPTIONS:
+          host: postgres
+          user: pyplanet
+          password: change-me
+          autocommit: true
+    DEDICATED:
+      default:
+        HOST: 127.0.0.1
+        PORT: "5000"
+        USER: SuperAdmin
+        PASSWORD: change-me
+    MAP_MATCHSETTINGS:
+      default: autosave.txt
+    BLACKLIST_FILE:
+      default: blacklist.txt
+    GUESTLIST_FILE:
+      default: guestlist.txt
+    STORAGE:
+      default:
+        DRIVER: pyplanet.core.storage.drivers.local.LocalDriver
+        OPTIONS: {}
+    SELF_UPGRADE: false
+    ALLOW_SLOTS_CHANGE: true
+    LOGGING_WRITE_LOGS: true
+    LOGGING_ROTATE_LOGS: true
+    LOGGING_DIRECTORY: logs
+  apps:
+    default:
+      - pyplanet.apps.contrib.admin
+      - pyplanet.apps.contrib.jukebox
+      - pyplanet.apps.contrib.karma
+      - pyplanet.apps.contrib.local_records
+      - pyplanet.apps.contrib.dedimania
+      - pyplanet.apps.contrib.players
+      - pyplanet.apps.contrib.info
+      - pyplanet.apps.contrib.mx
+      - pyplanet.apps.contrib.transactions
+      - pyplanet.apps.contrib.sector_times
+      - pyplanet.apps.contrib.dynamic_points
+      - pyplanet.apps.contrib.clock
+      - pyplanet.apps.contrib.best_cps
+      - pyplanet.apps.contrib.voting
+      - pyplanet.apps.contrib.queue
+      - pyplanet.apps.contrib.ads
+      - pyplanet.apps.contrib.music_server
+      - pyplanet.apps.contrib.funcmd
+      - pyplanet.apps.contrib.rankings
+
+persistence:
+  enabled: true
+  accessModes:
+    - ReadWriteOnce
+  size: 1Gi
+  storageClassName: ""
+  mountPath: /data
