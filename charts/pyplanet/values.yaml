@@ -10,9 +10,9 @@ nameOverride: ""
 fullnameOverride: ""
 
 command:
-  - pyplanet
-args:
   - start
+args:
+  - "--pool=default"
 
 podAnnotations: {}
 podLabels: {}
