@@ -15,6 +15,7 @@ command:
 args:
   - start
   - "--pool=default"
+  - "--settings=settings"
 
 podAnnotations: {}
 podLabels: {}
