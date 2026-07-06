@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  pyplanet:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-07-06T15:40:38.59413673Z"
+    description: A Helm chart for PyPlanet
+    digest: 5ae2d65e6244359dfb3fbcf0bb5227088df4496d7af4841d491451b16da69a27
+    name: pyplanet
+    type: application
+    urls:
+    - https://github.com/alexmge/pyplanet-helm-chart/releases/download/pyplanet-0.1.0/pyplanet-0.1.0.tgz
+    version: 0.1.0
+generated: "2026-07-06T15:40:38.59414709Z"
